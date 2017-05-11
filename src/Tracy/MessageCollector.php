@@ -42,7 +42,11 @@ class MessageCollector
      */
     public static function convertBodyToJsonObject($resource)
     {
-        $body = $resource->getBody()->getContents();
+        // go to start of stream
+        $stream = $resource->getBody();
+        $stream->rewind();
+
+        $body = (string) $stream;
         if (!$body) {
             return null;
         }

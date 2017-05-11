@@ -175,4 +175,21 @@ class HttplugExtension extends CompilerExtension
 
         return $creator::createPluginServiceDefinition($containerBuilder, $this->name, $clientName, $pluginConfig);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function beforeCompile(): void
+    {
+        $containerBuilder = $this->getContainerBuilder();
+
+        // configure clients from another extensions
+        foreach ($this->compiler->getExtensions() as $extension) {
+            if ($extension instanceof IClientProvider) {
+                foreach ($extension->getClientConfigs() as $name => $arguments) {
+                    $this->configureClient($containerBuilder, $name, $arguments ?? []);
+                }
+            }
+        }
+    }
 }
