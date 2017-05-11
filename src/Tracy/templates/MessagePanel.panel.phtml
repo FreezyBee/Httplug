@@ -1,0 +1,76 @@
+<?php
+declare(strict_types=1);
+
+namespace FreezyBee\Httplug\Tracy;
+
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Tracy\Dumper;
+
+?>
+<style class="tracy-debug">
+    #tracy-debug .nette-MessagePanel .tracy-inner table {
+        width: 100%;
+    }
+
+    #tracy-debug tr.message-header:hover {
+        cursor: pointer;
+    }
+
+    #tracy-debug tr.message-detail {
+        display: none;
+    }
+</style>
+
+<div class="nette-MessagePanel">
+    <h1>Httplug</h1>
+
+    <div class="tracy-inner">
+        <table>
+            <?php
+
+            foreach (MessageCollector::$messages as $i => $message) {
+                /** @var RequestInterface $request */
+                $request = $message['request'];
+
+                /** @var ResponseInterface $response */
+                $response = $message['response'];
+
+                echo '<tr class="message-header" data-id="', $i, '"><th colspan="2">', htmlspecialchars($request->getMethod() . ' ' . $request->getUri()) . ' (' . number_format($message['time'] * 1000, 1, '.', ' '), ' ms)  </th></tr>';
+                echo '<tr class="message-detail" data-id="', $i, '"><td>Headers</td><td>', Dumper::toHtml($request->getHeaders()), "</td></tr>\n";
+                $body = MessageCollector::convertBodyToJsonObject($request);
+                if ($body) {
+                    echo '<tr class="message-detail" data-id="', $i, '"><td>Content</td><td>', Dumper::toHtml($body), "</td></tr>\n";
+                }
+
+                echo '<tr class="message-detail" data-id="', $i, '"><th colspan="2">Response: ', $response->getStatusCode(), '</th></tr>';
+                echo '<tr class="message-detail" data-id="', $i, '"><td>Headers</td><td>', Dumper::toHtml($response->getHeaders()), "</td></tr>\n";
+                $body = MessageCollector::convertBodyToJsonObject($response);
+                if ($body) {
+                    echo '<tr class="message-detail" data-id="', $i, '"><td>Content</td><td>', Dumper::toHtml($body), "</td></tr>\n";
+                }
+            }
+            ?>
+        </table>
+    </div>
+</div>
+
+<script>
+    Array.from(document.querySelectorAll('#tracy-debug tr.message-header')).forEach(function (el) {
+        el.addEventListener('click', function (e) {
+            var id = e.target.parentElement.dataset.id;
+            var active = e.target.parentElement.dataset.active;
+            if (active === '1') {
+                var display = 'none';
+                e.target.parentElement.dataset.active = '0';
+            } else {
+                var display = 'table-row';
+                e.target.parentElement.dataset.active = '1';
+            }
+
+            Array.from(document.querySelectorAll('#tracy-debug tr.message-detail[data-id="' + id + '"]')).forEach(function (node) {
+                node.style.display = display;
+            });
+        });
+    });
+</script>

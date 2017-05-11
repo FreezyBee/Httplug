@@ -1,0 +1,96 @@
+application:
+    mapping:
+        *: FreezyBee\Httplug\Tests\Utils\*Presenter
+
+services:
+    router: FreezyBee\Httplug\Tests\Utils\RouterFactory::createRouter
+    cachePsr6: FreezyBee\NetteCachingPsr6\Cache
+    loggerPsr3: Psr\Log\NullLogger
+
+extensions:
+    httplug: FreezyBee\Httplug\DI\HttplugExtension
+
+httplug:
+    clientDefaults:
+        factory: @httplug.factory.guzzle6
+    clients:
+        test:
+            factory: @httplug.factory.guzzle6
+            plugins:
+                authentication:
+                    type: 'basic'
+                    username: 'my_username'
+                    password: 'p4ssw0rd'
+                cache:
+#                    pool: @cachePsr6
+                    streamFactory: null
+                    config:
+                        defaultTtl: 1
+                        respectCacheHeaders: true
+                cookie:
+                    cookieJar: null
+#                decoder:
+#                    useContentEncoding: true
+                logger:
+                    logger: @loggerPsr3
+                    formatter: null
+                redirect:
+                    preserveHeader: true
+                    useDefaultForMultiple: true
+                retry:
+                    retries: 1
+                # Set host name including protocol and optionally the port number, e.g. https://api.local:8000
+                addHost:
+                    host: https://ifire.cz:443 # Required
+                    replace: false # Whether to replace the host if request already specifies it
+                # Append headers to the request. If the header already exists the value will be appended to the current value.
+                headerAppend:
+                    headers:
+                        'X-FOO': bar
+                # Set header to default value if it does not exist.
+                headerDefaults:
+                    headers:
+                        'X-FOO': bar
+                # Set headers to requests. If the header does not exist it wil be set, if the header already exists it will be replaced.
+                headerSet:
+                    headers:
+                        'X-FOO': bar
+                # Remove headers from requests.
+                headerRemove:
+                    headers: ["X-FOO"]
+
+        test2:
+            factory: @httplug.factory.guzzle6
+            plugins:
+                authentication:
+                    type: 'wsse'
+                    username: 'my_username'
+                    password: 'p4ssw0rd'
+                cache:
+                    config:
+                        defaultTtl: 3600
+
+        test3:
+            factory: @httplug.factory.guzzle6
+            plugins:
+                authentication:
+                    type: 'bearer'
+                    token: 'authentication_token_hash'
+                decoder:
+                    useContentEncoding: true
+
+        test4:
+            factory: @httplug.factory.guzzle6
+            plugins:
+                authentication:
+                    type: 'service'
+                    service: 'my_authentication_service'
+
+        test5:
+            factory: @httplug.factory.guzzle6
+            plugins:
+                addHost:
+                    host: https://ifire.cz:443 # Required
+                    replace: true # Whether to replace the host if request already specifies it
+
+        test6:
