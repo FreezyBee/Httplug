@@ -23,7 +23,6 @@ use Nette\DI\ContainerBuilder;
 use Nette\DI\Helpers;
 use Nette\DI\ServiceDefinition;
 use Nette\DI\Statement;
-use Nette\Utils\Validators;
 
 /**
  * @author Jakub Janata <jakubjanata@gmail.com>

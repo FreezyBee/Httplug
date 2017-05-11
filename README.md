@@ -23,5 +23,4 @@ extensions:
 Documentation
 -------------
 
-// TODO
-Don't use plugin cache with plugin decoder !!!
+[EN](https://github.com/FreezyBee/Httplug/blob/master/docs/en/index.md)
