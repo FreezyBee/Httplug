@@ -19,6 +19,10 @@ class TestPresenter extends Presenter
     public function actionDefault(): void
     {
         /** @var PluginClient $pluginClient */
+        $pluginClient = $this->context->getService('httplug.client.test2');
+        dump($pluginClient);
+
+        /** @var PluginClient $pluginClient */
         $pluginClient = $this->context->getService('httplug.client.test5');
 
         /** @var MessageFactory $factory */

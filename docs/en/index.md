@@ -6,6 +6,7 @@ More info you can see in:
 - [Doc HTTPlug](http://docs.php-http.org/en/latest/httplug/introduction.html)
 - [Doc HTTPlug Bundle](http://docs.php-http.org/en/latest/integrations/symfony-bundle.html) this extension is inspired by Httplug Bundle
 
+
 Usage
 -----
 
@@ -17,10 +18,28 @@ Usage
     $response = $client->sendRequest($request);    
 ```
 
+
+Example: add own custom plugin
+------------------------------
+
+```yaml
+httplug:
+    clients:
+        test:
+            factory: @httplug.factory.guzzle6
+            plugins:
+                customPlugin:
+                    class: App\MyCustomPlugin # required
+                    arguments: # optional (can use autowiring)
+                        - %config%
+                        - @service1
+```
+
+
 Full configuration
 ------------------
 
-```neon
+```yaml
 extensions:
     httplug: FreezyBee\Httplug\DI\HttplugExtension
 

@@ -168,11 +168,20 @@ class HttplugExtension extends CompilerExtension
         /** @var IPluginServiceDefinitonCreator $creator */
         $creator = 'FreezyBee\Httplug\DI\Plugin\\' . ucfirst($pluginName);
 
-        if (!class_exists($creator)) {
-            throw new InvalidArgumentException("Plugin $pluginName does not exists");
+        if (class_exists($creator)) {
+            return $creator::createPluginServiceDefinition($containerBuilder, $this->name, $clientName, $pluginConfig);
         }
 
-        return $creator::createPluginServiceDefinition($containerBuilder, $this->name, $clientName, $pluginConfig);
+        // user custom plugin
+        $def = $containerBuilder
+            ->addDefinition($this->prefix("client.$clientName.plugin.$pluginName"))
+            ->setClass($pluginConfig['class']);
+
+        if (isset($pluginConfig['arguments'])) {
+            $def->setArguments($pluginConfig['arguments']);
+        }
+
+        return $def;
     }
 
     /**

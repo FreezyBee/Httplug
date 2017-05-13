@@ -62,6 +62,11 @@ httplug:
         test2:
             factory: @httplug.factory.guzzle6
             plugins:
+                customFirst:
+                    class: FreezyBee\Httplug\Tests\Utils\TestPlugin
+                    arguments:
+                        - [1, 2, 3]
+                        - @application.1
                 authentication:
                     type: 'wsse'
                     username: 'my_username'
@@ -69,6 +74,11 @@ httplug:
                 cache:
                     config:
                         defaultTtl: 3600
+                custom:
+                    class: FreezyBee\Httplug\Tests\Utils\TestPlugin
+                    arguments:
+                        - [1, 2, 3]
+                        - @application.1
 
         test3:
             factory: @httplug.factory.guzzle6
