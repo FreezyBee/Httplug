@@ -37,7 +37,7 @@ class Logger implements IPluginServiceDefinitonCreator
         }
 
         return $containerBuilder->addDefinition("$extensionName.client.$clientName.plugin.logger")
-            ->setClass(LoggerPlugin::class)
+            ->setType(LoggerPlugin::class)
             ->setArguments($args)
             ->setAutowired(false);
     }

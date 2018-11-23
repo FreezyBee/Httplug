@@ -20,7 +20,7 @@ class MessagePanel implements IBarPanel
     {
         ob_start();
         require __DIR__ . '/templates/MessagePanel.tab.phtml';
-        return ob_get_clean();
+        return ob_get_clean() ?: 'error';
     }
 
     /**
@@ -30,6 +30,6 @@ class MessagePanel implements IBarPanel
     {
         ob_start();
         require __DIR__ . '/templates/MessagePanel.panel.phtml';
-        return ob_get_clean();
+        return ob_get_clean() ?: 'error';
     }
 }

@@ -92,11 +92,11 @@ class HttplugExtension extends CompilerExtension
 
             if ($class !== null) {
                 // user defined
-                $def->setClass($class);
+                $def->setType($class);
             } else {
                 $class = $this->classes[$service];
                 // discovery
-                $def->setClass($class)
+                $def->setType($class)
                     ->setFactory([$this->factoryClasses[$service], 'find']);
             }
         }
@@ -140,7 +140,7 @@ class HttplugExtension extends CompilerExtension
 
         $containerBuilder
             ->addDefinition($serviceName)
-            ->setClass($this->debugMode ? PluginClientDecorator::class : PluginClient::class)
+            ->setType($this->debugMode ? PluginClientDecorator::class : PluginClient::class)
             ->setFactory([PluginClientFactory::class, 'createPluginClient'])
             ->setArguments([
                 $pluginServices,
@@ -165,17 +165,17 @@ class HttplugExtension extends CompilerExtension
         array $pluginConfig
     ): ServiceDefinition {
 
-        /** @var IPluginServiceDefinitonCreator $creator */
         $creator = 'FreezyBee\Httplug\DI\Plugin\\' . ucfirst($pluginName);
 
         if (class_exists($creator)) {
+            /** @var IPluginServiceDefinitonCreator $creator */
             return $creator::createPluginServiceDefinition($containerBuilder, $this->name, $clientName, $pluginConfig);
         }
 
         // user custom plugin
         $def = $containerBuilder
             ->addDefinition($this->prefix("client.$clientName.plugin.$pluginName"))
-            ->setClass($pluginConfig['class']);
+            ->setType($pluginConfig['class']);
 
         if (isset($pluginConfig['arguments'])) {
             $def->setArguments($pluginConfig['arguments']);

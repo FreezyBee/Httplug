@@ -31,7 +31,7 @@ class HeaderRemove implements IPluginServiceDefinitonCreator
 
         return $containerBuilder
             ->addDefinition("$extensionName.client.$clientName.plugin.headerRemove")
-            ->setClass(HeaderRemovePlugin::class)
+            ->setType(HeaderRemovePlugin::class)
             ->setArguments([$pluginConfig['headers']])
             ->setAutowired(false);
     }

@@ -47,8 +47,8 @@ class CurlFactory implements ClientFactory
         // Try to resolve curl constant names
         foreach ($config as $key => $value) {
             // If the $key is a string we assume it is a constant
-            if (is_string($key)) {
-                if (null === ($constantValue = constant($key))) {
+            if (\is_string($key)) {
+                if (null === ($constantValue = \constant($key))) {
                     throw new LogicException(sprintf('Key %s is not an int nor a CURL constant', $key));
                 }
 

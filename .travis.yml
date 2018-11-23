@@ -2,18 +2,18 @@ language: php
 
 cache:
     directories:
-        - vendor
         - $HOME/.composer/cache
 
 php:
     - 7.1
+    - 7.2
 
 install:
-    - composer install --no-interaction --prefer-source
+    - composer install --no-interaction --prefer-dist
 
 script:
-    - php vendor/bin/phpstan analyse ./src ./tests --level 5
-    - php vendor/bin/phpcs --standard=PSR2 ./src ./tests
+    - php vendor/bin/phpstan analyse ./src ./tests --level 7
+    - php vendor/bin/phpcs --standard=PSR12 ./src ./tests
     - php vendor/bin/tester ./tests -p phpdbg --coverage ./coverage.xml --coverage-src ./src
 
 after_script:

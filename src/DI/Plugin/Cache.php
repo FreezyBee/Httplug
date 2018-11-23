@@ -43,12 +43,12 @@ class Cache implements IPluginServiceDefinitonCreator
 
         $config = [];
         foreach ($pluginConfig['config'] as $key => $value) {
-            $config[strtolower(preg_replace('#(.)(?=[A-Z])#', '$1_', $key))] = $value;
+            $config[strtolower(preg_replace('#(.)(?=[A-Z])#', '$1_', $key) ?: '')] = $value;
         }
         $args['config'] = $config;
 
         return $containerBuilder->addDefinition("$extensionName.client.$clientName.plugin.cache")
-            ->setClass(CachePlugin::class)
+            ->setType(CachePlugin::class)
             ->setArguments($args)
             ->setAutowired(false);
     }

@@ -30,10 +30,10 @@ class Cookie implements IPluginServiceDefinitonCreator
         array $pluginConfig
     ): ServiceDefinition {
 
-        $cookieJar = $pluginConfig['cookieJar'] ?? new CookieJar;
+        $cookieJar = $pluginConfig['cookieJar'] ?? new CookieJar();
 
         return $containerBuilder->addDefinition("$extensionName.client.$clientName.plugin.cookie")
-            ->setClass(CookiePlugin::class)
+            ->setType(CookiePlugin::class)
             ->setArguments([$cookieJar])
             ->setAutowired(false);
     }

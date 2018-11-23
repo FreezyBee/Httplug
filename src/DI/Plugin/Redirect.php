@@ -31,11 +31,11 @@ class Redirect implements IPluginServiceDefinitonCreator
 
         $config = [];
         foreach ($pluginConfig as $key => $value) {
-            $config[strtolower(preg_replace('#(.)(?=[A-Z])#', '$1_', $key))] = $value;
+            $config[strtolower(preg_replace('#(.)(?=[A-Z])#', '$1_', $key) ?: '')] = $value;
         }
 
         return $containerBuilder->addDefinition("$extensionName.client.$clientName.plugin.redirect")
-            ->setClass(RedirectPlugin::class)
+            ->setType(RedirectPlugin::class)
             ->setArguments([$config])
             ->setAutowired(false);
     }

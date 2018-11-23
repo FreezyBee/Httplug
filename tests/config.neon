@@ -1,6 +1,7 @@
 application:
     mapping:
         *: FreezyBee\Httplug\Tests\Utils\*Presenter
+    scanDirs: false
 
 services:
     router: FreezyBee\Httplug\Tests\Utils\RouterFactory::createRouter

@@ -26,13 +26,13 @@ class PluginClientDecorator implements HttpClient, HttpAsyncClient
 
     /**
      * PluginClientDecorator constructor.
-     * @param $client
+     * @param HttpClient|HttpAsyncClient $client
      * @param array $plugins
      * @param array $options
      */
     public function __construct($client, array $plugins = [], array $options = [])
     {
-        $this->tracyPlugin = new TracyPlugin;
+        $this->tracyPlugin = new TracyPlugin();
         $options = array_merge($options, ['debug_plugins' => [$this->tracyPlugin]]);
         $this->pluginClient = new PluginClient($client, $plugins, $options);
     }

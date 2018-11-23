@@ -31,7 +31,7 @@ class HeaderAppend implements IPluginServiceDefinitonCreator
 
         return $containerBuilder
             ->addDefinition("$extensionName.client.$clientName.plugin.headerAppend")
-            ->setClass(HeaderAppendPlugin::class)
+            ->setType(HeaderAppendPlugin::class)
             ->setArguments([$pluginConfig['headers']])
             ->setAutowired(false);
     }

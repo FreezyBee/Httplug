@@ -32,13 +32,13 @@ class AddHost implements IPluginServiceDefinitonCreator
 
         $uriServiceDef = $containerBuilder
             ->addDefinition("$extensionName.client.$clientName.plugin.addHost.uri")
-            ->setClass(UriInterface::class)
+            ->setType(UriInterface::class)
             ->setAutowired(false)
             ->setFactory(["@$extensionName.uriFactory", 'createUri'])
             ->setArguments([$pluginConfig['host']]);
 
         return $containerBuilder->addDefinition("$extensionName.client.$clientName.plugin.addHost")
-            ->setClass(AddHostPlugin::class)
+            ->setType(AddHostPlugin::class)
             ->setArguments([$uriServiceDef, ['replace' => $pluginConfig['replace'] ?? false]])
             ->setAutowired(false);
     }

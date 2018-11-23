@@ -43,21 +43,21 @@ class Authentication implements IPluginServiceDefinitonCreator
             case 'bearer':
                 $authServiceDef = $containerBuilder
                     ->addDefinition("$extensionName.client.$clientName.plugin.authentication.bearer")
-                    ->setClass(Bearer::class)
+                    ->setType(Bearer::class)
                     ->setArguments([$pluginConfig['token']])
                     ->setAutowired(false);
                 break;
             case 'basic':
                 $authServiceDef = $containerBuilder
                     ->addDefinition("$extensionName.client.$clientName.plugin.authentication.basic")
-                    ->setClass(BasicAuth::class)
+                    ->setType(BasicAuth::class)
                     ->setArguments([$pluginConfig['username'], $pluginConfig['password']])
                     ->setAutowired(false);
                 break;
             case 'wsse':
                 $authServiceDef = $containerBuilder
                     ->addDefinition("$extensionName.client.$clientName.plugin.authentication.wsse")
-                    ->setClass(Wsse::class)
+                    ->setType(Wsse::class)
                     ->setArguments([$pluginConfig['username'], $pluginConfig['password']])
                     ->setAutowired(false);
                 break;
@@ -69,7 +69,7 @@ class Authentication implements IPluginServiceDefinitonCreator
         }
 
         return $containerBuilder->addDefinition("$extensionName.client.$clientName.plugin.authentication")
-            ->setClass(AuthenticationPlugin::class)
+            ->setType(AuthenticationPlugin::class)
             ->setArguments([$authServiceDef])
             ->setAutowired(false);
     }

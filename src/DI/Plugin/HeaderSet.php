@@ -31,7 +31,7 @@ class HeaderSet implements IPluginServiceDefinitonCreator
 
         return $containerBuilder
             ->addDefinition("$extensionName.client.$clientName.plugin.headerSet")
-            ->setClass(HeaderSetPlugin::class)
+            ->setType(HeaderSetPlugin::class)
             ->setArguments([$pluginConfig['headers']])
             ->setAutowired(false);
     }

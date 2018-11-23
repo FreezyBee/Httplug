@@ -30,7 +30,7 @@ class Retry implements IPluginServiceDefinitonCreator
     ): ServiceDefinition {
 
         return $containerBuilder->addDefinition("$extensionName.client.$clientName.plugin.retry")
-            ->setClass(RetryPlugin::class)
+            ->setType(RetryPlugin::class)
             ->setArguments([$pluginConfig])
             ->setAutowired(false);
     }

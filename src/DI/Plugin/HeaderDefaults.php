@@ -31,7 +31,7 @@ class HeaderDefaults implements IPluginServiceDefinitonCreator
 
         return $containerBuilder
             ->addDefinition("$extensionName.client.$clientName.plugin.headerDefaults")
-            ->setClass(HeaderDefaultsPlugin::class)
+            ->setType(HeaderDefaultsPlugin::class)
             ->setArguments([$pluginConfig['headers']])
             ->setAutowired(false);
     }

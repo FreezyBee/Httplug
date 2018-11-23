@@ -51,9 +51,7 @@ class MessageCollector
             return null;
         }
 
-        if ($resource->hasHeader('Content-Type') &&
-            strpos($resource->getHeader('Content-Type')[0], 'application/json') !== false
-        ) {
+        if (strpos($resource->getHeaderLine('Content-Type'), 'application/json') === 0) {
             return json_decode($body);
         }
 

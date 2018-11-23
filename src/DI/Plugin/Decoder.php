@@ -30,7 +30,7 @@ class Decoder implements IPluginServiceDefinitonCreator
     ): ServiceDefinition {
 
         return $containerBuilder->addDefinition("$extensionName.client.$clientName.plugin.decoder")
-            ->setClass(DecoderPlugin::class)
+            ->setType(DecoderPlugin::class)
             ->setArguments([['use_content_encoding' => $pluginConfig['useContentEncoding'] ?? true]])
             ->setAutowired(false);
     }
