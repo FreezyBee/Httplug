@@ -5,8 +5,6 @@ namespace FreezyBee\Httplug\ClientFactory;
 
 use Http\Client\Curl\Client;
 use Http\Client\HttpClient;
-use Http\Message\MessageFactory;
-use Http\Message\StreamFactory;
 use LogicException;
 
 /**
@@ -14,26 +12,6 @@ use LogicException;
  */
 class CurlFactory implements ClientFactory
 {
-    /**
-     * @var MessageFactory
-     */
-    private $messageFactory;
-
-    /**
-     * @var StreamFactory
-     */
-    private $streamFactory;
-
-    /**
-     * @param MessageFactory $messageFactory
-     * @param StreamFactory $streamFactory
-     */
-    public function __construct(MessageFactory $messageFactory, StreamFactory $streamFactory)
-    {
-        $this->messageFactory = $messageFactory;
-        $this->streamFactory = $streamFactory;
-    }
-
     /**
      * {@inheritdoc}
      * @throws \LogicException
@@ -57,6 +35,6 @@ class CurlFactory implements ClientFactory
             }
         }
 
-        return new Client($this->messageFactory, $this->streamFactory, $config);
+        return new Client(null, null, $config);
     }
 }

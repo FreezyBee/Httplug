@@ -17,7 +17,7 @@ class TracyPlugin implements Plugin
 
     /**
      * Last request
-     * @var RequestInterface
+     * @var RequestInterface|null
      */
     private $request;
 
@@ -31,9 +31,9 @@ class TracyPlugin implements Plugin
     }
 
     /**
-     * @return RequestInterface
+     * @return RequestInterface|null
      */
-    public function getLastRequest(): RequestInterface
+    public function getLastRequest(): ?RequestInterface
     {
         return $this->request;
     }

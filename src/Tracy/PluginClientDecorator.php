@@ -32,8 +32,7 @@ class PluginClientDecorator implements HttpClient, HttpAsyncClient
      */
     public function __construct($client, array $plugins = [], array $options = [])
     {
-        $this->tracyPlugin = new TracyPlugin();
-        $options = array_merge($options, ['debug_plugins' => [$this->tracyPlugin]]);
+        $plugins[] = $this->tracyPlugin = new TracyPlugin();
         $this->pluginClient = new PluginClient($client, $plugins, $options);
     }
 
@@ -45,7 +44,13 @@ class PluginClientDecorator implements HttpClient, HttpAsyncClient
     {
         $start = microtime(true);
         $response = $this->pluginClient->sendRequest($request);
-        MessageCollector::addMessage($this->tracyPlugin->getLastRequest(), $response, microtime(true) - $start);
+
+        MessageCollector::addMessage(
+            $this->tracyPlugin->getLastRequest() ?? $request,
+            $response,
+            microtime(true) - $start
+        );
+
         return $response;
     }
 

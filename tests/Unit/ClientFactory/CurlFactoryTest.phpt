@@ -7,9 +7,9 @@ require __DIR__ . '/../../bootstrap.php';
 
 use FreezyBee\Httplug\ClientFactory\CurlFactory;
 use Http\Client\Curl\Client;
-use Http\Message\MessageFactory;
-use Http\Message\StreamFactory;
 use Mockery;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -20,7 +20,7 @@ class CurlFactoryTest extends TestCase
 {
     public function testCreateClient(): void
     {
-        $factory = new CurlFactory(Mockery::mock(MessageFactory::class), Mockery::mock(StreamFactory::class));
+        $factory = new CurlFactory(Mockery::mock(ResponseFactoryInterface::class), Mockery::mock(StreamFactoryInterface::class));
         $client = $factory->createClient();
 
         Assert::true($client instanceof Client);

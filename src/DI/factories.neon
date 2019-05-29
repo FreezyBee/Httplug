@@ -1,19 +1,7 @@
-factory.buzz:
-    class: FreezyBee\Httplug\ClientFactory\BuzzFactory(@extension.messageFactory)
-    autowired: false
-
 factory.curl:
-    class: FreezyBee\Httplug\ClientFactory\CurlFactory(@extension.messageFactory, @extension.streamFactory)
+    class: FreezyBee\Httplug\ClientFactory\CurlFactory
     autowired: false
 
 factory.guzzle6:
     class: FreezyBee\Httplug\ClientFactory\Guzzle6Factory
-    autowired: false
-
-factory.react:
-    class: FreezyBee\Httplug\ClientFactory\ReactFactory(@extension.messageFactory)
-    autowired: false
-
-factory.socket:
-    class: FreezyBee\Httplug\ClientFactory\SocketFactory(@extension.messageFactory)
     autowired: false

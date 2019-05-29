@@ -16,31 +16,29 @@
   ],
   "require": {
     "php": "^7.1",
+    "ext-json": "*",
     "nette/di": "^2.4",
+    "php-http/client-common": "^2.0",
     "php-http/client-implementation": "^1.0",
-    "php-http/message-factory": "^1.0",
-    "php-http/client-common": "^1.2",
-    "php-http/message": "^1.4",
     "php-http/discovery": "^1.0",
-    "ext-json": "*"
+    "php-http/message": "^1.4",
+    "php-http/message-factory": "^1.0"
   },
   "require-dev": {
     "freezy-bee/nette-caching-psr6": "^1.1",
+    "mockery/mockery": "^1.1",
     "nette/application": "^2.4",
     "nette/bootstrap": "^2.4",
     "nette/tester": "^2.0",
-    "php-http/curl-client": "^1.0",
+    "nyholm/psr7": "^1.1",
     "php-http/cache-plugin": "^1.4",
+    "php-http/curl-client": "^2.0",
+    "php-http/guzzle6-adapter": "^2.0",
     "php-http/logger-plugin": "^1.0",
-    "php-http/socket-client": "^1.0",
-    "php-http/guzzle6-adapter": "^1.1",
-    "php-http/react-adapter": "^2.0",
-    "php-http/buzz-adapter": "^1.0",
-    "phpstan/phpstan-shim": "^0.10",
+    "phpstan/phpstan-shim": "^0.11",
     "squizlabs/php_codesniffer": "^3.0",
-    "mockery/mockery": "^1.1",
-    "tracy/tracy": "^2.4",
-    "symfony/cache": "^4.1"
+    "symfony/cache": "^4.1",
+    "tracy/tracy": "^2.6"
   },
   "autoload": {
     "psr-4": {
@@ -51,5 +49,8 @@
     "psr-4": {
       "FreezyBee\\Httplug\\Tests\\": "tests/"
     }
+  },
+  "config": {
+    "sort-packages": true
   }
 }

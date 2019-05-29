@@ -136,7 +136,7 @@ class HttplugExtension extends CompilerExtension
             $pluginServices[] = $this->configurePlugin($containerBuilder, $pluginName, $clientName, $pluginConfig);
         }
 
-        $pluginClientOptions = $this->debugMode ? ['debug_plugins' => $this->config['tracy']['plugins']] : [];
+        $pluginClientOptions = [];
 
         $containerBuilder
             ->addDefinition($serviceName)
