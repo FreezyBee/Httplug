@@ -5,3 +5,7 @@ factory.curl:
 factory.guzzle6:
     class: FreezyBee\Httplug\ClientFactory\Guzzle6Factory
     autowired: false
+
+factory.guzzle7:
+    class: FreezyBee\Httplug\ClientFactory\Guzzle7Factory
+    autowired: false

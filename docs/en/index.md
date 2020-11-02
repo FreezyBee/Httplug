@@ -73,7 +73,7 @@ httplug:
                     service: @my_authentication_service
                 cache:
                     pool: @cachePsr6 # optional - can use autowire PSR6 cache pool
-                    streamFactory: @streamFactory # optional - can use discovered streamFactory
+                    streamFactory: @streamFactory # required
                     config:
                         defaultTtl: 1
                         respectCacheHeaders: true
@@ -113,5 +113,8 @@ httplug:
             factory: @httplug.factory.curl
 
         test3:
+            factory: @httplug.factory.guzzle7
+
+        test4:
 
 ```
