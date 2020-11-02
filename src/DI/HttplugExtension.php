@@ -17,12 +17,11 @@ use Http\Message\MessageFactory;
 use Http\Message\StreamFactory;
 use Http\Message\UriFactory;
 use InvalidArgumentException;
-use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
 use Nette\DI\ContainerBuilder;
+use Nette\DI\Definitions\ServiceDefinition;
+use Nette\DI\Definitions\Statement;
 use Nette\DI\Helpers;
-use Nette\DI\ServiceDefinition;
-use Nette\DI\Statement;
 
 /**
  * @author Jakub Janata <jakubjanata@gmail.com>
@@ -82,7 +81,7 @@ class HttplugExtension extends CompilerExtension
         $config = $this->config;
 
         $factories = $this->loadFromFile(__DIR__ . '/factories.neon');
-        Compiler::loadDefinitions($containerBuilder, $factories, $this->name);
+        $this->loadDefinitionsFromConfig($factories);
 
         $this->debugMode = $config['tracy']['debugger'];
 
@@ -108,9 +107,9 @@ class HttplugExtension extends CompilerExtension
 
         // register tracy panel
         if ($this->debugMode) {
-            $containerBuilder
-                ->getDefinition('tracy.bar')
-                ->addSetup('addPanel', [new Statement(MessagePanel::class)]);
+            /** @var ServiceDefinition $def */
+            $def = $containerBuilder->getDefinition('tracy.bar');
+            $def->addSetup('addPanel', [new Statement(MessagePanel::class)]);
         }
     }
 
@@ -124,7 +123,9 @@ class HttplugExtension extends CompilerExtension
     {
         $serviceName = $this->prefix("client.$clientName");
 
-        $factory = $clientConfig['factory'] ?? $this->config['clientDefaults']['factory'];
+        /** @var mixed[] $config */
+        $config = $this->config;
+        $factory = $clientConfig['factory'] ?? $config['clientDefaults']['factory'];
         if ($factory === null) {
             throw new InvalidArgumentException('Please specify client factory (or default client factory)');
         }
