@@ -12,7 +12,7 @@ install:
     - composer install --no-interaction --prefer-dist
 
 script:
-    - php vendor/bin/phpstan analyse ./src ./tests --level 7
+    - php vendor/bin/phpstan analyse ./src ./tests --level max
     - php vendor/bin/phpcs --standard=PSR12 ./src ./tests
     - php vendor/bin/tester ./tests -p phpdbg --coverage ./coverage.xml --coverage-src ./src
 

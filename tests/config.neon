@@ -7,6 +7,7 @@ services:
     router: FreezyBee\Httplug\Tests\Utils\RouterFactory::createRouter
     cachePsr6: FreezyBee\NetteCachingPsr6\Cache
     loggerPsr3: Psr\Log\NullLogger
+    streamFactory: Nyholm\Psr7\Factory\Psr17Factory
 
 extensions:
     httplug: FreezyBee\Httplug\DI\HttplugExtension
@@ -24,7 +25,7 @@ httplug:
                     password: 'p4ssw0rd'
                 cache:
 #                    pool: @cachePsr6
-                    streamFactory: null
+                    streamFactory: @streamFactory
                     config:
                         defaultTtl: 1
                         respectCacheHeaders: true
@@ -73,6 +74,7 @@ httplug:
                     username: 'my_username'
                     password: 'p4ssw0rd'
                 cache:
+                    streamFactory: @streamFactory
                     config:
                         defaultTtl: 3600
                 custom:
