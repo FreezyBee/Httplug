@@ -82,7 +82,7 @@ class HttplugExtension extends CompilerExtension
         $config = $this->config;
 
         $factories = $this->loadFromFile(__DIR__ . '/factories.neon');
-        Compiler::loadDefinitions($containerBuilder, $factories, $this->name);
+        $this->loadDefinitionsFromConfig($factories);
 
         $this->debugMode = $config['tracy']['debugger'];
 
