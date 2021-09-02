@@ -9,6 +9,8 @@ use FreezyBee\Httplug\Tracy\PluginClientDecorator;
 use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
 use Http\Message\MessageFactory;
+use Http\Message\StreamFactory;
+use Http\Message\UriFactory;
 use Nette\Configurator;
 use Tester\Assert;
 use Tester\TestCase;
@@ -33,9 +35,17 @@ class ServiceInstantiationTest extends TestCase
         $client = $container->getService('httplug.client.test');
         Assert::true($client instanceof PluginClient);
 
-        /** @var MessageFactory $messageFactory */
+        $clientBase = $container->getService('httplug.client');
+        Assert::true($clientBase instanceof HttpClient);
+
         $messageFactory = $container->getService('httplug.messageFactory');
         Assert::true($messageFactory instanceof MessageFactory);
+
+        $uriFactory = $container->getService('httplug.uriFactory');
+        Assert::true($uriFactory instanceof UriFactory);
+
+        $streamFactory = $container->getService('httplug.streamFactory');
+        Assert::true($streamFactory instanceof StreamFactory);
 
         $request = $messageFactory->createRequest('GET', 'https://ifire.cz');
         $response = $client->sendRequest($request);

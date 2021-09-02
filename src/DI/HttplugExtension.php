@@ -64,10 +64,10 @@ class HttplugExtension extends CompilerExtension
 
     /** @var array */
     private $factoryClasses = [
-        'client' => HttpClientDiscovery::class,
-        'messageFactory' => MessageFactoryDiscovery::class,
-        'uriFactory' => UriFactoryDiscovery::class,
-        'streamFactory' => StreamFactoryDiscovery::class,
+        'client' => [HttpClientDiscovery::class, 'find'],
+        'messageFactory' => [MessageFactoryDiscovery::class, 'find'],
+        'uriFactory' => [UriFactoryDiscovery::class, 'find'],
+        'streamFactory' => [StreamFactoryDiscovery::class, 'find'],
     ];
 
     /**
@@ -77,7 +77,6 @@ class HttplugExtension extends CompilerExtension
     {
         $containerBuilder = $this->getContainerBuilder();
 
-        /** @var array[] $config */
         $this->config = $this->validateConfig(Helpers::expand(self::$defaults, $containerBuilder->parameters));
         $config = $this->config;
 
@@ -97,7 +96,7 @@ class HttplugExtension extends CompilerExtension
                 $class = $this->classes[$service];
                 // discovery
                 $def->setType($class)
-                    ->setFactory([$this->factoryClasses[$service], 'find']);
+                    ->setFactory($this->factoryClasses[$service]);
             }
         }
 
@@ -113,7 +112,6 @@ class HttplugExtension extends CompilerExtension
             $def->addSetup('addPanel', [new Statement(MessagePanel::class)]);
         }
     }
-
 
     /**
      * @param ContainerBuilder $containerBuilder

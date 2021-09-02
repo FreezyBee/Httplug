@@ -14,10 +14,10 @@ extensions:
 
 httplug:
     clientDefaults:
-        factory: @httplug.factory.guzzle6
+        factory: @httplug.factory.guzzle7
     clients:
         test:
-            factory: @httplug.factory.guzzle6
+            factory: @httplug.factory.guzzle7
             plugins:
                 authentication:
                     type: 'basic'
@@ -62,7 +62,7 @@ httplug:
                     headers: ["X-FOO"]
 
         test2:
-            factory: @httplug.factory.guzzle6
+            factory: @httplug.factory.guzzle7
             plugins:
                 customFirst:
                     class: FreezyBee\Httplug\Tests\Utils\TestPlugin
@@ -84,7 +84,7 @@ httplug:
                         - @application.1
 
         test3:
-            factory: @httplug.factory.guzzle6
+            factory: @httplug.factory.guzzle7
             plugins:
                 authentication:
                     type: 'bearer'
@@ -93,14 +93,14 @@ httplug:
                     useContentEncoding: true
 
         test4:
-            factory: @httplug.factory.guzzle6
+            factory: @httplug.factory.guzzle7
             plugins:
                 authentication:
                     type: 'service'
                     service: 'my_authentication_service'
 
         test5:
-            factory: @httplug.factory.guzzle6
+            factory: @httplug.factory.guzzle7
             plugins:
                 addHost:
                     host: https://ifire.cz:443 # Required
