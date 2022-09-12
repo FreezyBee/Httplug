@@ -6,8 +6,9 @@ namespace FreezyBee\Httplug\DI\Plugin;
 
 use Http\Client\Common\Plugin\CachePlugin;
 use Nette\DI\ContainerBuilder;
-use Nette\DI\ServiceDefinition;
+use Nette\DI\Definitions\Definition;
 use Nette\StaticClass;
+use Nette\Utils\Strings;
 
 /**
  * @author Jakub Janata <jakubjanata@gmail.com>
@@ -16,19 +17,12 @@ class Cache implements IPluginServiceDefinitonCreator
 {
     use StaticClass;
 
-    /**
-     * @param ContainerBuilder $containerBuilder
-     * @param string $extensionName
-     * @param string $clientName
-     * @param array[] $pluginConfig
-     * @return ServiceDefinition
-     */
     public static function createPluginServiceDefinition(
         ContainerBuilder $containerBuilder,
         string $extensionName,
         string $clientName,
         array $pluginConfig
-    ): ServiceDefinition {
+    ): Definition {
 
         $args = [];
 
@@ -44,7 +38,8 @@ class Cache implements IPluginServiceDefinitonCreator
 
         $config = [];
         foreach ($pluginConfig['config'] as $key => $value) {
-            $config[strtolower(preg_replace('#(.)(?=[A-Z])#', '$1_', $key) ?: '')] = $value;
+            $newKey = Strings::replace($key, '#(.)(?=[A-Z])#', '$1_');
+            $config[strtolower($newKey)] = $value;
         }
         $args['config'] = $config;
 

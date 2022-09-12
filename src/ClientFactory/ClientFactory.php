@@ -12,9 +12,7 @@ use Http\Client\HttpClient;
 interface ClientFactory
 {
     /**
-     * Input an array of configuration to be able to create a HttpClient.
-     * @param array $config
-     * @return HttpClient
+     * @param array<mixed> $config
      */
     public function createClient(array $config = []): HttpClient;
 }

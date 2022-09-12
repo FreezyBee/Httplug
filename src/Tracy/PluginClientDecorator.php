@@ -19,17 +19,14 @@ class PluginClientDecorator implements HttpClient, HttpAsyncClient
 {
     use SmartObject;
 
-    /** @var PluginClient */
-    private $pluginClient;
-
-    /** @var TracyPlugin */
-    private $tracyPlugin;
+    private PluginClient $pluginClient;
+    private TracyPlugin $tracyPlugin;
 
     /**
      * PluginClientDecorator constructor.
      * @param HttpClient|HttpAsyncClient $client
-     * @param array $plugins
-     * @param array $options
+     * @param array<mixed> $plugins
+     * @param array<mixed> $options
      */
     public function __construct($client, array $plugins = [], array $options = [])
     {

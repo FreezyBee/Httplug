@@ -6,7 +6,7 @@ namespace FreezyBee\Httplug\DI\Plugin;
 
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Nette\DI\ContainerBuilder;
-use Nette\DI\ServiceDefinition;
+use Nette\DI\Definitions\Definition;
 use Nette\StaticClass;
 use Psr\Http\Message\UriInterface;
 
@@ -17,19 +17,12 @@ class AddHost implements IPluginServiceDefinitonCreator
 {
     use StaticClass;
 
-    /**
-     * @param ContainerBuilder $containerBuilder
-     * @param string $extensionName
-     * @param string $clientName
-     * @param array $pluginConfig
-     * @return ServiceDefinition
-     */
     public static function createPluginServiceDefinition(
         ContainerBuilder $containerBuilder,
         string $extensionName,
         string $clientName,
         array $pluginConfig
-    ): ServiceDefinition {
+    ): Definition {
 
         $uriServiceDef = $containerBuilder
             ->addDefinition("$extensionName.client.$clientName.plugin.addHost.uri")

@@ -13,18 +13,14 @@ use Psr\Http\Message\RequestInterface;
  */
 class TestPlugin implements Plugin
 {
-    /** @var array */
-    private $config;
-
-    /** @var mixed */
-    private $service;
+    /** @var array<mixed> */
+    public array $config;
+    public object $service;
 
     /**
-     * TestPlugin constructor.
-     * @param array $config
-     * @param mixed $service
+     * @param array<mixed> $config
      */
-    public function __construct(array $config, $service)
+    public function __construct(array $config, object $service)
     {
         $this->config = $config;
         $this->service = $service;

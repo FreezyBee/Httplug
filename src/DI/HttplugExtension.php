@@ -20,6 +20,7 @@ use Http\Message\UriFactory;
 use InvalidArgumentException;
 use Nette\DI\CompilerExtension;
 use Nette\DI\ContainerBuilder;
+use Nette\DI\Definitions\Definition;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nette\DI\Definitions\Statement;
 use Nette\DI\Helpers;
@@ -29,11 +30,10 @@ use Nette\DI\Helpers;
  */
 class HttplugExtension extends CompilerExtension
 {
-    /** @var bool */
-    private $debugMode = false;
+    private bool $debugMode = false;
 
-    /** @var array */
-    private static $defaults = [
+    /** @var array<string, mixed> */
+    private static array $defaults = [
         # uses discovery if not specified
         'classes' => [
             'client' => null,
@@ -54,16 +54,16 @@ class HttplugExtension extends CompilerExtension
         ]
     ];
 
-    /** @var array */
-    private $classes = [
+    /** @var array<string, string> */
+    private array $classes = [
         'client' => HttpClient::class,
         'messageFactory' => MessageFactory::class,
         'uriFactory' => UriFactory::class,
         'streamFactory' => StreamFactory::class,
     ];
 
-    /** @var array */
-    private $factoryClasses = [
+    /** @var array<string, mixed> */
+    private array $factoryClasses = [
         'client' => [HttpClientDiscovery::class, 'find'],
         'messageFactory' => [MessageFactoryDiscovery::class, 'find'],
         'uriFactory' => [UriFactoryDiscovery::class, 'find'],
@@ -116,7 +116,7 @@ class HttplugExtension extends CompilerExtension
     /**
      * @param ContainerBuilder $containerBuilder
      * @param string $clientName
-     * @param array[] $clientConfig
+     * @param array<mixed> $clientConfig
      */
     private function configureClient(ContainerBuilder $containerBuilder, string $clientName, array $clientConfig): void
     {
@@ -152,18 +152,14 @@ class HttplugExtension extends CompilerExtension
     }
 
     /**
-     * @param ContainerBuilder $containerBuilder
-     * @param string $pluginName
-     * @param string $clientName
-     * @param array $pluginConfig
-     * @return ServiceDefinition
+     * @param array<mixed> $pluginConfig
      */
     private function configurePlugin(
         ContainerBuilder $containerBuilder,
         string $pluginName,
         string $clientName,
         array $pluginConfig
-    ): ServiceDefinition {
+    ): Definition {
 
         $creator = 'FreezyBee\Httplug\DI\Plugin\\' . ucfirst($pluginName);
 

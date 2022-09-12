@@ -17,10 +17,8 @@ class PluginClientFactory
 {
     /**
      * @param Plugin[] $plugins
-     * @param ClientFactory $factory
-     * @param array $config config to the client factory
-     * @param array $pluginClientOptions config forwarded to the PluginClient
-     * @param bool $debugMode
+     * @param array<mixed> $config config to the client factory
+     * @param array<mixed> $pluginClientOptions config forwarded to the PluginClient
      * @return PluginClientDecorator|PluginClient
      */
     public static function createPluginClient(

@@ -13,10 +13,6 @@ use LogicException;
  */
 class CurlFactory implements ClientFactory
 {
-    /**
-     * {@inheritdoc}
-     * @throws \LogicException
-     */
     public function createClient(array $config = []): HttpClient
     {
         if (!class_exists(Client::class)) {

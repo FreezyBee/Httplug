@@ -15,11 +15,9 @@ class MessageCollector
 {
     use StaticClass;
 
-    /** @var array */
-    public static $messages = [];
-
-    /** @var float */
-    public static $totalTime;
+    /** @var array<mixed> */
+    public static array $messages = [];
+    public static float $totalTime = 0.0;
 
     /**
      * @param RequestInterface $request

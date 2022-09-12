@@ -16,7 +16,7 @@ interface IClientProvider
      *      plugins:
      *          ...
 
-     * @return array
+     * @return array<mixed>
      */
     public function getClientConfigs(): array;
 }
