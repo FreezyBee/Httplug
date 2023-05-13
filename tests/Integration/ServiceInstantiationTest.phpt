@@ -7,11 +7,11 @@ require __DIR__ . '/../bootstrap.php';
 
 use FreezyBee\Httplug\Tracy\PluginClientDecorator;
 use Http\Client\Common\PluginClient;
-use Http\Client\HttpClient;
-use Http\Message\MessageFactory;
-use Http\Message\StreamFactory;
-use Http\Message\UriFactory;
 use Nette\Configurator;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -36,18 +36,18 @@ class ServiceInstantiationTest extends TestCase
         Assert::true($client instanceof PluginClient);
 
         $clientBase = $container->getService('httplug.client');
-        Assert::true($clientBase instanceof HttpClient);
+        Assert::true($clientBase instanceof ClientInterface);
 
-        $messageFactory = $container->getService('httplug.messageFactory');
-        Assert::true($messageFactory instanceof MessageFactory);
+        $requestFactory = $container->getService('httplug.requestFactory');
+        Assert::true($requestFactory instanceof RequestFactoryInterface);
 
         $uriFactory = $container->getService('httplug.uriFactory');
-        Assert::true($uriFactory instanceof UriFactory);
+        Assert::true($uriFactory instanceof UriFactoryInterface);
 
         $streamFactory = $container->getService('httplug.streamFactory');
-        Assert::true($streamFactory instanceof StreamFactory);
+        Assert::true($streamFactory instanceof StreamFactoryInterface);
 
-        $request = $messageFactory->createRequest('GET', 'https://ifire.cz');
+        $request = $requestFactory->createRequest('GET', 'https://ifire.cz');
         $response = $client->sendRequest($request);
         Assert::same(200, $response->getStatusCode());
     }
@@ -67,11 +67,10 @@ class ServiceInstantiationTest extends TestCase
         $client = $container->getService('httplug.client.test');
         Assert::true($client instanceof PluginClientDecorator);
 
-        /** @var MessageFactory $messageFactory */
-        $messageFactory = $container->getService('httplug.messageFactory');
-        Assert::true($messageFactory instanceof MessageFactory);
+        $requestFactory = $container->getService('httplug.requestFactory');
+        Assert::true($requestFactory instanceof RequestFactoryInterface);
 
-        $request = $messageFactory->createRequest('GET', 'https://ifire.cz');
+        $request = $requestFactory->createRequest('GET', 'https://ifire.cz');
         $response = $client->sendRequest($request);
         Assert::same(200, $response->getStatusCode());
     }

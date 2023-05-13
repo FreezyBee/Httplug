@@ -9,14 +9,8 @@ use FreezyBee\Httplug\DI\Plugin\IPluginServiceDefinitonCreator;
 use FreezyBee\Httplug\Tracy\MessagePanel;
 use FreezyBee\Httplug\Tracy\PluginClientDecorator;
 use Http\Client\Common\PluginClient;
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\StreamFactoryDiscovery;
-use Http\Discovery\UriFactoryDiscovery;
-use Http\Message\MessageFactory;
-use Http\Message\StreamFactory;
-use Http\Message\UriFactory;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use InvalidArgumentException;
 use Nette\DI\CompilerExtension;
 use Nette\DI\ContainerBuilder;
@@ -24,6 +18,10 @@ use Nette\DI\Definitions\Definition;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nette\DI\Definitions\Statement;
 use Nette\DI\Helpers;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
 
 /**
  * @author Jakub Janata <jakubjanata@gmail.com>
@@ -37,7 +35,7 @@ class HttplugExtension extends CompilerExtension
         # uses discovery if not specified
         'classes' => [
             'client' => null,
-            'messageFactory' => null,
+            'requestFactory' => null,
             'uriFactory' => null,
             'streamFactory' => null
         ],
@@ -56,18 +54,18 @@ class HttplugExtension extends CompilerExtension
 
     /** @var array<string, string> */
     private array $classes = [
-        'client' => HttpClient::class,
-        'messageFactory' => MessageFactory::class,
-        'uriFactory' => UriFactory::class,
-        'streamFactory' => StreamFactory::class,
+        'client' => ClientInterface::class,
+        'requestFactory' => RequestFactoryInterface::class,
+        'uriFactory' => UriFactoryInterface::class,
+        'streamFactory' => StreamFactoryInterface::class,
     ];
 
     /** @var array<string, mixed> */
     private array $factoryClasses = [
-        'client' => [HttpClientDiscovery::class, 'find'],
-        'messageFactory' => [MessageFactoryDiscovery::class, 'find'],
-        'uriFactory' => [UriFactoryDiscovery::class, 'find'],
-        'streamFactory' => [StreamFactoryDiscovery::class, 'find'],
+        'client' => [Psr18ClientDiscovery::class, 'find'],
+        'requestFactory' => [Psr17FactoryDiscovery::class, 'findRequestFactory'],
+        'uriFactory' => [Psr17FactoryDiscovery::class, 'findUriFactory'],
+        'streamFactory' => [Psr17FactoryDiscovery::class, 'findStreamFactory'],
     ];
 
     /**

@@ -11,10 +11,10 @@ Usage
 -----
 
 ```php
-    $messageFactory = $container->getService('httplug.messageFactory');
+    $requestFactory = $container->getService('httplug.requestFactory');
     $client = $container->getService('httplug.client.test');
 
-    $request = $messageFactory->createRequest('GET', 'https://google.com');
+    $request = $requestFactory->createRequest('GET', 'https://google.com');
     $response = $client->sendRequest($request);    
 ```
 

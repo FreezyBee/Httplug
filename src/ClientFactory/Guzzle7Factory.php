@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace FreezyBee\Httplug\ClientFactory;
 
 use Http\Adapter\Guzzle7\Client;
-use Http\Client\HttpClient;
 use LogicException;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class Guzzle7Factory implements ClientFactory
 {
-    public function createClient(array $config = []): HttpClient
+    public function createClient(array $config = []): ClientInterface
     {
         if (!class_exists(Client::class)) {
             throw new LogicException(

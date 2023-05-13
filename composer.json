@@ -19,11 +19,8 @@
     "php": "^8.0",
     "ext-json": "*",
     "nette/di": "^3.0",
-    "php-http/client-common": "^2.0",
-    "php-http/client-implementation": "^1.0",
-    "php-http/discovery": "^1.0",
-    "php-http/message": "^1.4",
-    "php-http/message-factory": "^1.0"
+    "php-http/client-common": "^2.6",
+    "php-http/discovery": "^1.0"
   },
   "require-dev": {
     "freezy-bee/nette-caching-psr6": "^2.0",
@@ -52,6 +49,9 @@
     }
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "php-http/discovery": false
+    }
   }
 }
